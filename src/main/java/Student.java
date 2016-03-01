@@ -73,6 +73,17 @@ public class Student {
     }
  }
 
+   public void update(String last_name, String first_name, String date) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE students SET last_name = :last_name WHERE id = :id";
+      con.createQuery(sql)
+        .addParameter("last_name", last_name)
+        .addParameter("id", id)
+        .executeUpdate();
+    }
+  }
+
+
   public void addCourse(Course course) {
   try(Connection con = DB.sql2o.open()) {
     String sql = "INSERT INTO courses_students (course_id, student_id) VALUES (:course_id, :student_id)";

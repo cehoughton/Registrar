@@ -91,10 +91,22 @@ public class Course {
              students.add(student);
          }
          return students;
- }
-}
+       }
+     }
 
+    public void delete() {
+      try(Connection con = DB.sql2o.open()) {
+        String deleteQuery = "DELETE FROM courses WHERE id = :id;";
+          con.createQuery(deleteQuery)
+            .addParameter("id", id)
+            .executeUpdate();
 
+        String joinDeleteQuery = "DELETE FROM courses_students WHERE course_id = :courseId";
+          con.createQuery(joinDeleteQuery)
+            .addParameter("courseId", this.getId())
+            .executeUpdate();
+      }
+    }
 
 
 }
