@@ -18,4 +18,11 @@ public class StudentTest {
      Student secondStudent = new Student("Public", "Jim", "2016-02-24");
      assertEquals(firstStudent.getLastname(), secondStudent.getLastname());
    }
+
+   @Test
+    public void equals_returnsTrueIfEnrollmentDatesAreTheSame() {
+      Student firstStudent = new Student("Public", "Jim", "2016-02-24");
+      Student secondStudent = new Student("Public", "Jim", "2016-02-24");
+      assertEquals(firstStudent.getDate(), secondStudent.getDate());
+    }
 }
