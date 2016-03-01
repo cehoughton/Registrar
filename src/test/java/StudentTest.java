@@ -74,4 +74,20 @@ public class StudentTest {
       List savedCourses = myStudent.getCourses();
       assertEquals(savedCourses.size(), 1);
     }
+
+      @Test
+      public void delete_deletesAllStudentsAndListsAssoicationes() {
+        Course myCourse = new Course("philosophy", 101);
+        myCourse.save();
+
+        Student myStudent = new Student("Public", "Jim", "2016-02-24");
+        myStudent.save();
+
+        myStudent.addCourse(myCourse);
+        myStudent.delete();
+        assertEquals(myCourse.getStudents().size(), 0);
+      }
+
+
+
 }
