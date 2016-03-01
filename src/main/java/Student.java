@@ -1,5 +1,6 @@
 import java.util.List;
 import org.sql2o.*;
+import java.util.ArrayList;
 
 
 public class Student {
@@ -61,4 +62,44 @@ public class Student {
       .getKey();
     }
   }
+
+  public static Student find(int id) {
+   try(Connection con = DB.sql2o.open()) {
+     String sql = "SELECT * FROM Students where id=:id";
+     Student student = con.createQuery(sql)
+      .addParameter("id", id)
+      .executeAndFetchFirst(Student.class);
+    return student;
+   }
+ }
+
+ public void addCourse(Course course) {
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "INSERT INTO courses_students (course_id, student_id) VALUES (:course_id, :student_id)";
+    con.createQuery(sql)
+      .addParameter("course_id", course.getId())
+      .addParameter("student_id", this.getId())
+      .executeUpdate();
+  }
+}
+
+public ArrayList<Course> getCourses() {
+try(Connection con = DB.sql2o.open()){
+  String sql = "SELECT course_id FROM courses_students WHERE student_id = :student_id";
+  List<Integer> courseIds = con.createQuery(sql)
+    .addParameter("student_id", this.getId())
+    .executeAndFetch(Integer.class);
+
+  ArrayList<Course> courses = new ArrayList<Course>();
+
+  for (Integer courseId : courseIds) {
+      String courseQuery = "Select * From courses WHERE id = :courseId";
+      Course course = con.createQuery(courseQuery)
+        .addParameter("courseId", courseId)
+        .executeAndFetchFirst(Course.class);
+      courses.add(course);
+  }
+  return courses;
+}
+}
 }

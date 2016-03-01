@@ -1,7 +1,7 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class ClassTest {
+public class CourseTest {
 
   // @Test
   // public void newTriangle_instantiatesCorrectly() {
