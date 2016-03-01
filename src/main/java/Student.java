@@ -1,16 +1,12 @@
 import java.util.List;
 import org.sql2o.*;
-import java.util.Date.*;
-import java.time.LocalDateTime;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 
 public class Student {
   private int id;
   private String last_name;
   private String first_name;
-  private Timestamp date;
+  private String date;
 
   public int getId() {
     return id;
@@ -24,11 +20,11 @@ public class Student {
     return first_name;
   }
 
-  public Timestamp getDate() {
+  public String getDate() {
     return date;
   }
 
-  public Student(String last_name, String first_name, Timestamp date) {
+  public Student(String last_name, String first_name, String date) {
     this.last_name = last_name;
     this.first_name = first_name;
     this.date = date;
