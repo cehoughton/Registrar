@@ -36,4 +36,29 @@ public class Student {
       return con.createQuery(sql).executeAndFetch(Student.class);
     }
   }
+
+  @Override
+  public boolean equals(Object otherStudent) {
+    if (!(otherStudent instanceof Student)) {
+      return false;
+    } else {
+      Student newStudent = (Student) otherStudent;
+      return this.getLastname().equals(newStudent.getLastname()) &&
+             this.getFirstname().equals(newStudent.getFirstname()) &&
+             this.getDate().equals(newStudent.getDate()) &&
+             this.getId() == newStudent.getId();
+    }
+  }
+
+  public void save() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO students (last_name, first_name, date) VALUES (:last_name, :first_name, :date)";
+      this.id = (int) con.createQuery(sql, true)
+      .addParameter("last_name", this.last_name)
+      .addParameter("first_name", this.first_name)
+      .addParameter("date", this.date)
+      .executeUpdate()
+      .getKey();
+    }
+  }
 }

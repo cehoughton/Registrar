@@ -25,4 +25,11 @@ public class StudentTest {
       Student secondStudent = new Student("Public", "Jim", "2016-02-24");
       assertEquals(firstStudent.getDate(), secondStudent.getDate());
     }
+
+    @Test
+    public void save_returnsTrueIfLastNamesAreTheSame() {
+      Student myStudent = new Student("Public", "Jim", "2016-02-24");
+      myStudent.save();
+      assertTrue(Student.all().get(0).equals(myStudent));
+    }
 }
