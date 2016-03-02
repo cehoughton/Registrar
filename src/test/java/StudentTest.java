@@ -50,6 +50,15 @@ public class StudentTest {
     }
 
     @Test
+    public void update_updatesStudentsInDataBase_true() {
+      Student myStudent = new Student("Public", "Kim", "2016-02-24");
+      myStudent.save();
+      myStudent.update("Public", "Kim", "2016-02-24");
+      Student savedStudent = Student.find(myStudent.getId());
+      assertTrue(myStudent.equals(savedStudent));
+    }
+
+    @Test
     public void addCourse_addsCourseToStudent() {
       Course myCourse = new Course("philosophy", 101);
       myCourse.save();

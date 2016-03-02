@@ -74,10 +74,12 @@ public class Student {
  }
 
    public void update(String last_name, String first_name, String date) {
+    String sql = "UPDATE students SET last_name = :last_name, first_name = :first_name, date = = :date WHERE id = :id";
     try(Connection con = DB.sql2o.open()) {
-      String sql = "UPDATE students SET last_name = :last_name WHERE id = :id";
       con.createQuery(sql)
         .addParameter("last_name", last_name)
+        .addParameter("first_name", first_name)
+        .addParameter("date", date)
         .addParameter("id", id)
         .executeUpdate();
     }
